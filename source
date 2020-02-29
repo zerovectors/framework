@@ -688,7 +688,7 @@ function library:CreateWindow(options)
 
 		callback = callback or function() end
 		local dropdown = library:Create("TextLabel", {
-			Name = "TextLabel2"
+			Name = "TextLabel2";
 			Size = UDim2.new(1, -10, 0, 20);
 			BackgroundTransparency = 0.75;
 			BackgroundColor3 = options.boxcolor,
