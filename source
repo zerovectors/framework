@@ -702,7 +702,7 @@ function library:CreateWindow(options)
 			Parent = self.container;
 		})
 
-		local button = library:Create("ImageButton",{
+		local button = library:Create("ImageButton2",{
 			BackgroundTransparency = 1;
 			Image = 'rbxassetid://3234893186';
 			Size = UDim2.new(0, 18, 1, 0);
