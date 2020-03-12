@@ -1,0 +1,89 @@
+local chatlogs = Instance.new("Frame")
+local title = Instance.new("TextLabel")
+local buttons = Instance.new("Frame")
+local clear = Instance.new("TextButton")
+local enable = Instance.new("TextButton")
+local save = Instance.new("TextButton")
+local logpannel = Instance.new("Frame")
+local main = Instance.new("ScrollingFrame")
+
+chatlogs.Name = "chatlogs"
+chatlogs.Parent = game.CoreGui:WaitForChild("ScreenGui")
+chatlogs.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+chatlogs.BackgroundTransparency = 1
+chatlogs.BorderColor3 = Color3.fromRGB(27, 42, 53)
+chatlogs.Position = UDim2.new(0.71, 0,0.997, 0)
+chatlogs.Size = UDim2.new(0, 328, 0, 231)
+
+title.Name = "title"
+title.Parent = chatlogs
+title.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+title.BorderSizePixel = 0
+title.Size = UDim2.new(0, 332, 0, 35)
+title.Font = Enum.Font.SourceSans
+title.Text = "Chatlogs"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.TextSize = 18.000
+
+buttons.Name = "buttons"
+buttons.Parent = chatlogs
+buttons.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+buttons.BorderSizePixel = 0
+buttons.Position = UDim2.new(0, 0, 0.830557406, 0)
+buttons.Size = UDim2.new(0, 332, 0, 40)
+
+clear.Name = "clear"
+clear.Parent = buttons
+clear.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+clear.BorderColor3 = Color3.fromRGB(0, 0, 0)
+clear.BorderSizePixel = 0
+clear.Position = UDim2.new(0.0465683527, 0, 0.189472958, 0)
+clear.Size = UDim2.new(0, 52, 0, 23)
+clear.Font = Enum.Font.SourceSans
+clear.Text = "Clear"
+clear.TextColor3 = Color3.fromRGB(255, 255, 255)
+clear.TextSize = 15.000
+
+enable.Name = "enable"
+enable.Parent = buttons
+enable.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+enable.BorderColor3 = Color3.fromRGB(0, 0, 0)
+enable.BorderSizePixel = 0
+enable.Position = UDim2.new(0.237342551, 0, 0.189472958, 0)
+enable.Size = UDim2.new(0, 52, 0, 23)
+enable.Font = Enum.Font.SourceSans
+enable.Text = "Enable"
+enable.TextColor3 = Color3.fromRGB(255, 255, 255)
+enable.TextSize = 15.000
+
+save.Name = "save"
+save.Parent = buttons
+save.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+save.BorderColor3 = Color3.fromRGB(0, 0, 0)
+save.BorderSizePixel = 0
+save.Position = UDim2.new(0.729919791, 0, 0.189472973, 0)
+save.Size = UDim2.new(0, 80, 0, 23)
+save.Font = Enum.Font.SourceSans
+save.Text = "Save To .txt"
+save.TextColor3 = Color3.fromRGB(255, 255, 255)
+save.TextSize = 15.000
+
+logpannel.Name = "logpannel"
+logpannel.Parent = chatlogs
+logpannel.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+logpannel.BorderSizePixel = 0
+logpannel.Position = UDim2.new(0, 0, 0.152019024, 0)
+logpannel.Size = UDim2.new(0, 332, 0, 157)
+
+main.Name = 'main'
+main.Parent = logpannel
+main.BackgroundColor3 = Color3.fromRGB(46, 46, 47)
+main.BorderSizePixel = 0
+main.Position = UDim2.new(0.0224719681, 0, 0.0540540181, 0)
+main.Size = UDim2.new(0, 315, 0, 141)
+main.ZIndex = 10
+main.BottomImage = "rbxasset://textures/blackBkg_square.png"
+main.CanvasSize = UDim2.new(0, 0,20, 10)
+main.MidImage = "rbxasset://textures/blackBkg_square.png"
+main.ScrollBarThickness = 8
+main.TopImage = "rbxasset://textures/blackBkg_square.png"
