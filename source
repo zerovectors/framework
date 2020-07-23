@@ -572,10 +572,11 @@ function library:CreateWindow(options)
 
 		local tSize = game:GetService('TextService'):GetTextSize(text, 16, Enum.Font.SourceSans, Vector2.new(math.huge, math.huge))
 
-		local button = library:Create("TextLabel2", {
+		local button = library:Create("TextLabel", {
 			Text =  text,
 			Size = UDim2.new(1, -10, 0, tSize.Y + 5);
 			TextScaled = false;
+			Name = "TextLabel2";
 			BackgroundTransparency = 1;
 			TextColor3 = Color3.fromRGB(255, 255, 255);
 			TextXAlignment = Enum.TextXAlignment.Left;
