@@ -47,7 +47,7 @@ end
 
 local defaults = {
 	txtcolor = Color3.fromRGB(255, 255, 255),
-	underline = Color3.fromRGB(128, 0, 154),
+	underline = Color3.fromRGB(121, 9, 255),
 	barcolor = Color3.fromRGB(40, 40, 40),
 	bgcolor = Color3.fromRGB(30, 30, 30),
 }
@@ -567,6 +567,28 @@ function library:CreateWindow(options)
 		return button
 	end
 
+	function window:AddLabel2(text)
+		self.count = self.count + 1;
+
+		local tSize = game:GetService('TextService'):GetTextSize(text, 16, Enum.Font.SourceSans, Vector2.new(math.huge, math.huge))
+
+		local button = library:Create("TextLabel2", {
+			Text =  text,
+			Size = UDim2.new(1, -10, 0, tSize.Y + 5);
+			TextScaled = false;
+			BackgroundTransparency = 1;
+			TextColor3 = Color3.fromRGB(255, 255, 255);
+			TextXAlignment = Enum.TextXAlignment.Left;
+			TextSize = 16,
+			Font = Enum.Font.SourceSans,
+			LayoutOrder = self.Count;
+			Parent = self.container;
+		})
+
+		self:Resize()
+		return button
+	end
+
 	function window:AddDropdown(options, callback)
 		self.count = self.count + 1
 		local default = options[1] or "";
@@ -682,121 +704,6 @@ function library:CreateWindow(options)
 		}
 	end;
 
-	function window:AddDropdown2(options, callback)
-		self.count = self.count + 1
-		local default = options[1] or "";
-
-		callback = callback or function() end
-		local dropdown = library:Create("TextLabel", {
-			Name = "TextLabel2";
-			Size = UDim2.new(1, -10, 0, 20);
-			BackgroundTransparency = 0.75;
-			BackgroundColor3 = options.boxcolor,
-			TextColor3 = Color3.fromRGB(255, 255, 255);
-			TextXAlignment = Enum.TextXAlignment.Center;
-			TextSize = 16,
-			Text = default,
-			Font = Enum.Font.SourceSans,
-			BorderSizePixel = 0;
-			LayoutOrder = self.Count;
-			Parent = self.container;
-		})
-
-		local button = library:Create("ImageButton",{
-			BackgroundTransparency = 1;
-			Image = 'rbxassetid://3234893186';
-			Size = UDim2.new(0, 18, 1, 0);
-			Position = UDim2.new(1, -20, 0, 0);
-			Parent = dropdown;
-		})
-
-		local frame;
-
-		local function isInGui(frame)
-			local mloc = game:GetService('UserInputService'):GetMouseLocation();
-			local mouse = Vector2.new(mloc.X, mloc.Y - 36);
-
-			local x1, x2 = frame.AbsolutePosition.X, frame.AbsolutePosition.X + frame.AbsoluteSize.X;
-			local y1, y2 = frame.AbsolutePosition.Y, frame.AbsolutePosition.Y + frame.AbsoluteSize.Y;
-
-			return (mouse.X >= x1 and mouse.X <= x2) and (mouse.Y >= y1 and mouse.Y <= y2)
-		end
-
-		local function count(t)
-			local c = 0;
-			for i, v in next, t do
-				c = c + 1
-			end
-			return c;
-		end
-
-		button.MouseButton1Click:connect(function()
-			if count(options) == 0 then
-				return
-			end
-
-			if frame then
-				frame:Destroy();
-				frame = nil;
-			end
-
-			self.container.ClipsDescendants = false;
-
-			frame = library:Create('Frame', {
-				Position = UDim2.new(0, 0, 1, 0);
-				BackgroundColor3 = Color3.fromRGB(40, 40, 40);
-				Size = UDim2.new(0, dropdown.AbsoluteSize.X, 0, (count(options) * 21));
-				BorderSizePixel = 0;
-				Parent = dropdown;
-				ClipsDescendants = true;
-				ZIndex = 2;
-			})
-
-			library:Create('UIListLayout', {
-				Name = 'Layout';
-				Parent = frame;
-			})
-
-			for i, option in next, options do
-				local selection = library:Create('TextButton', {
-					Text = option;
-					BackgroundColor3 = Color3.fromRGB(40, 40, 40);
-					TextColor3 = Color3.fromRGB(255, 255, 255);
-					BorderSizePixel = 0;
-					TextSize = 16;
-					Font = Enum.Font.SourceSans;
-					Size = UDim2.new(1, 0, 0, 21);
-					Parent = frame;
-					ZIndex = 2;
-				})
-
-				selection.MouseButton1Click:connect(function()
-					dropdown.Text = option;
-					callback(option)
-					frame.Size = UDim2.new(1, 0, 0, 0);
-					game:GetService('Debris'):AddItem(frame, 0.1)
-				end)
-			end
-		end);
-
-		game:GetService('UserInputService').InputBegan:connect(function(m)
-			if m.UserInputType == Enum.UserInputType.MouseButton1 then
-				if frame and (not isInGui(frame)) then
-					game:GetService('Debris'):AddItem(frame);
-				end
-			end
-		end)
-
-		callback(default);
-		self:Resize()
-		return {
-			Refresh = function(self, array)
-				game:GetService('Debris'):AddItem(frame);
-				options = array
-				dropdown.Text = options[1];
-			end
-		}
-	end;
 
 	return window
 end
