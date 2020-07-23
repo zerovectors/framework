@@ -574,9 +574,9 @@ function library:CreateWindow(options)
 
 		local button = library:Create("TextLabel", {
 			Text =  text,
+			Name = "TextLabel2",
 			Size = UDim2.new(1, -10, 0, tSize.Y + 5);
 			TextScaled = false;
-			Name = "TextLabel2";
 			BackgroundTransparency = 1;
 			TextColor3 = Color3.fromRGB(255, 255, 255);
 			TextXAlignment = Enum.TextXAlignment.Left;
