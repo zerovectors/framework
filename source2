@@ -574,7 +574,7 @@ function library:CreateWindow(options)
 
 		local button = library:Create("TextLabel", {
 			Text =  text,
-			Name = "TextLabel2",
+			Name = "TextLabel2";
 			Size = UDim2.new(1, -10, 0, tSize.Y + 5);
 			TextScaled = false;
 			BackgroundTransparency = 1;
