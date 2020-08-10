@@ -1619,6 +1619,7 @@ function library:Init()
 		return
 	end
 	self.base.Parent = game:GetService"CoreGui"
+	self.base.Name = "uwuware"
 	
 	self.cursor = self.cursor or self:Create("Frame", {
 		ZIndex = 100,
