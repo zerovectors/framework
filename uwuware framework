@@ -1625,7 +1625,6 @@ function library:Init()
 		Name = "Cursor";
 		Image = "http://www.roblox.com/asset/?id=282305376";
 		ZIndex = 100;
-		AnchorPoint = Vector2.new(0, 0);
 		Size = UDim2.new(0, 14, 0, 14);
 		ImageColor3 = Color3.fromRGB(221, 3, 255);
 		BackgroundTransparency = 1;
