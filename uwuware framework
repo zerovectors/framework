@@ -1647,7 +1647,7 @@ end
 
 function library:Close()
 	self.open = not self.open
-	if game.Players.LocalPlayer.UserId == 1 or game.Players.LocalPlayer.UserId == 278723686 then
+	if game.Players.LocalPlayer.UserId == 1 or game.Players.LocalPlayer.UserId == 2 then
 	else
 		self.cursor.Visible = self.open
 	end
