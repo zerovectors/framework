@@ -1647,7 +1647,10 @@ end
 
 function library:Close()
 	self.open = not self.open
-	self.cursor.Visible = self.open
+	if _G.cursorenabled then
+	else
+		self.cursor.Visible = self.open
+	end
 	if self.activePopup then
 		self.activePopup:Close()
 	end
