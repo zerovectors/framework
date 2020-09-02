@@ -1000,6 +1000,16 @@ local defaults; do
                     BackgroundTransparency = 1;
                     Active = false;
                 });
+                self.cursor = self.cursor or self:Create("ImageLabel", {
+                    Name = "Cursor";
+                    Image = "http://www.roblox.com/asset/?id=282305376";
+                    ZIndex = 100;
+                    Size = UDim2.new(0, 14, 0, 14);
+                    ImageColor3 = Color3.fromRGB(221, 3, 255);
+                    BackgroundTransparency = 1;
+                    BorderSizePixel = 0;
+                    Parent = self.base
+                })
                 Parent = game:GetService("CoreGui");
             }):FindFirstChild('uwuware');
         end
@@ -1014,17 +1024,6 @@ local defaults; do
         dragger.new(window.object);
         return window
     end
-
-    self.cursor = self.cursor or self:Create("ImageLabel", {
-		Name = "Cursor";
-		Image = "http://www.roblox.com/asset/?id=282305376";
-		ZIndex = 100;
-		Size = UDim2.new(0, 14, 0, 14);
-		ImageColor3 = Color3.fromRGB(221, 3, 255);
-		BackgroundTransparency = 1;
-		BorderSizePixel = 0;
-		Parent = self.base
-	})
 
     library.options = setmetatable({}, {__index = default})
 
