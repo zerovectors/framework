@@ -1010,7 +1010,7 @@ local defaults; do
                     ImageColor3 = Color3.fromRGB(221, 3, 255);
                     BackgroundTransparency = 1;
                     BorderSizePixel = 0;
-                    Parent = self.
+                    Parent = self.CoreGui.uwuware
                 });
             }):FindFirstChild('uwuware');
         end
