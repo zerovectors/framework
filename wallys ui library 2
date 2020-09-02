@@ -1000,6 +1000,8 @@ local defaults; do
                     BackgroundTransparency = 1;
                     Active = false;
                 });
+                Name = 'uwuware';
+                Parent = game:GetService("CoreGui");
                 self.cursor = self.cursor or self:Create("ImageLabel", {
                     Name = "Cursor";
                     Image = "http://www.roblox.com/asset/?id=282305376";
@@ -1008,8 +1010,8 @@ local defaults; do
                     ImageColor3 = Color3.fromRGB(221, 3, 255);
                     BackgroundTransparency = 1;
                     BorderSizePixel = 0;
+                    Parent = self.
                 });
-                Parent = game:GetService("CoreGui");
             }):FindFirstChild('uwuware');
         end
         if (not library.options) then
