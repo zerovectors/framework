@@ -1,4 +1,4 @@
-local library = {count = 0, queue = {}, callbacks = {}, rainbowtable = {}, toggled = true, binds = {}};
+local library = {count = 0, queue = {}, callbacks = {}, flags = {}, rainbowtable = {}, toggled = true, binds = {}};
 local defaults; do
     local dragger = {}; do
         local mouse        = game:GetService("Players").LocalPlayer:GetMouse();
@@ -33,7 +33,6 @@ local defaults; do
                 end)
             end
         end
-
 
         game:GetService('UserInputService').InputBegan:connect(function(key, gpe)
             if (not gpe) then
@@ -118,7 +117,6 @@ local defaults; do
                 object = newWindow;
                 container = newWindow.container;
                 toggled = true;
-                flags   = {};
 
             }, types)
 
@@ -176,7 +174,7 @@ local defaults; do
         
         function types:AddToggle(name, options, callback)
             local default  = options.default or false;
-            local location = options.location or self.flags;
+            local location = options.location or library.flags;
             local flag     = options.flag or "";
             local callback = callback or function() end;
             
@@ -275,7 +273,7 @@ local defaults; do
             local type   = options.type or "";
             local default = options.default or "";
             local data = options.data
-            local location = options.location or self.flags;
+            local location = options.location or library.flags;
             local flag     = options.flag or "";
             local callback = callback or function() end;
             local min      = options.min or 0;
@@ -351,7 +349,7 @@ local defaults; do
         end
         
         function types:AddBind(name, options, callback)
-            local location     = options.location or self.flags;
+            local location     = options.location or library.flags;
             local keyboardOnly = options.kbonly or false
             local flag         = options.flag or "";
             local callback     = callback or function() end;
@@ -506,7 +504,7 @@ local defaults; do
             local default = options.default or options.min;
             local min     = options.min or 0;
             local max      = options.max or 1;
-            local location = options.location or self.flags;
+            local location = options.location or library.flags;
             local precise  = options.precise  or false -- e.g 0, 1 vs 0, 0.1, 0.2, ...
             local flag     = options.flag or "";
             local callback = callback or function() end
@@ -668,7 +666,7 @@ local defaults; do
         function types:AddSearchBox(text, options, callback)
             local list = options.list or {};
             local flag = options.flag or "";
-            local location = options.location or self.flags;
+            local location = options.location or library.flags;
             local callback = callback or function() end;
 
             local busy = false;
@@ -782,7 +780,7 @@ local defaults; do
         end
         
         function types:AddList(name, options, callback)
-            local location = options.location or self.flags;
+            local location = options.location or library.flags;
             local flag = options.flag or "";
             local callback = callback or function() end;
             local values = options.values or {};
@@ -996,14 +994,14 @@ local defaults; do
         if (not library.container) then
             library.container = self:Create("ScreenGui", {
                 self:Create('Frame', {
-                    Name = 'Container';
+                    Name = 'uwuware';
                     Size = UDim2.new(1, -30, 1, 0);
                     Position = UDim2.new(0, 20, 0, 20);
                     BackgroundTransparency = 1;
                     Active = false;
                 });
                 Parent = game:GetService("CoreGui");
-            }):FindFirstChild('Container');
+            }):FindFirstChild('uwuware');
         end
         if (not library.options) then
 			library.options = setmetatable(options or {}, {__index = defaults})
@@ -1016,6 +1014,17 @@ local defaults; do
         dragger.new(window.object);
         return window
     end
+
+    self.cursor = self.cursor or self:Create("ImageLabel", {
+		Name = "Cursor";
+		Image = "http://www.roblox.com/asset/?id=282305376";
+		ZIndex = 100;
+		Size = UDim2.new(0, 14, 0, 14);
+		ImageColor3 = Color3.fromRGB(221, 3, 255);
+		BackgroundTransparency = 1;
+		BorderSizePixel = 0;
+		Parent = self.base
+	})
 
     library.options = setmetatable({}, {__index = default})
 
@@ -1047,6 +1056,10 @@ local defaults; do
     end
 
     game:GetService("UserInputService").InputBegan:connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement and library.cursor then
+            local mouse = inputService:GetMouseLocation() + Vector2.new(0, -36)
+            library.cursor.Position = UDim2.new(-0.004, mouse.X, -0.01, mouse.Y)
+        end
         if (not library.binding) then
             for idx, binds in next, library.binds do
                 local real_binding = binds.location[idx];
