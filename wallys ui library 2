@@ -4,7 +4,6 @@ local defaults; do
         local mouse        = game:GetService("Players").LocalPlayer:GetMouse();
         local inputService = game:GetService('UserInputService');
         local heartbeat    = game:GetService("RunService").Heartbeat;
-        local inputService = game:GetService"UserInputService"
         -- // credits to Ririchi / Inori for this cute drag function :)
         function dragger.new(frame)
             local s, event = pcall(function()
@@ -45,6 +44,12 @@ local defaults; do
                         wait();
                     end
                 end
+            end
+        end)
+        inputService.InputChanged:connect(function(input)
+            if input.UserInputType == Enum.UserInputType.MouseMovement and library.cursor then
+                local mouse = inputService:GetMouseLocation() + Vector2.new(0, -36)
+                game.CoreGui.uwuware.Cursor = UDim2.new(-0.004, mouse.X, -0.01, mouse.Y)
             end
         end)
     end
@@ -1009,7 +1014,7 @@ local defaults; do
                 Image = "http://www.roblox.com/asset/?id=282305376";
                 ZIndex = 100;
                 Size = UDim2.new(0, 14, 0, 14);
-                ImageColor3 = Color3.fromRGB(0, 255, 140);
+                ImageColor3 = Color3.fromRGB(221, 3, 255);
                 BackgroundTransparency = 1;
                 BorderSizePixel = 0;
                 Visible = true;
@@ -1065,12 +1070,6 @@ local defaults; do
                     binds.callback()
                 end
             end
-        end
-    end)
-    inputService.InputChanged:connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseMovement and library.cursor then
-            local mouse = inputService:GetMouseLocation() + Vector2.new(0, -36)
-            game.CoreGui.uwuware.Cursor = UDim2.new(-0.004, mouse.X, -0.01, mouse.Y)
         end
     end)
 end
