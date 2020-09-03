@@ -4,6 +4,7 @@ local defaults; do
         local mouse        = game:GetService("Players").LocalPlayer:GetMouse();
         local inputService = game:GetService('UserInputService');
         local heartbeat    = game:GetService("RunService").Heartbeat;
+        local inputService = game:GetService"UserInputService"
         -- // credits to Ririchi / Inori for this cute drag function :)
         function dragger.new(frame)
             local s, event = pcall(function()
@@ -1057,10 +1058,6 @@ local defaults; do
     end
 
     game:GetService("UserInputService").InputBegan:connect(function(input)
-        if input == Enum.UserInputType.MouseMovement and library.cursor then
-            local mouse = inputService:GetMouseLocation() + Vector2.new(0, -36)
-            library.cursor.Position = UDim2.new(-0.004, mouse.X, -0.01, mouse.Y)
-        end
         if (not library.binding) then
             for idx, binds in next, library.binds do
                 local real_binding = binds.location[idx];
@@ -1068,6 +1065,12 @@ local defaults; do
                     binds.callback()
                 end
             end
+        end
+    end)
+    inputService.InputChanged:connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement and library.cursor then
+            local mouse = inputService:GetMouseLocation() + Vector2.new(0, -36)
+            library.cursor.Position = UDim2.new(-0.004, mouse.X, -0.01, mouse.Y)
         end
     end)
 end
