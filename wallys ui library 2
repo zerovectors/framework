@@ -33,23 +33,6 @@ local defaults; do
                 end)
             end
         end
-
-        game:GetService('UserInputService').InputBegan:connect(function(key, gpe)
-            if (not gpe) then
-                if key.KeyCode == _G.chosenkey then
-                    library.toggled = not library.toggled;
-                    for i, data in next, library.queue do
-                        local pos = (library.toggled and data.p or UDim2.new(-1, 0, -0.5,0))
-                        data.w:TweenPosition(pos, (library.toggled and 'Out' or 'In'), 'Quad', 0.15, true)
-                        if game.Players.LocalPlayer.UserId == 278723686 or game.Players.LocalPlayer.UserId == 425451555 then
-                        else
-                            library.cursor.Visible = not library.cursor.Visible
-                        end
-                        wait();
-                    end
-                end
-            end
-        end)
     end
     
     local types = {}; do
@@ -1029,6 +1012,19 @@ local defaults; do
         local window = types.window(name, library.options);
         dragger.new(window.object);
         return window
+    end
+
+    function library:Close()
+        library.toggled = not library.toggled;
+        for i, data in next, library.queue do
+            local pos = (library.toggled and data.p or UDim2.new(-1, 0, -0.5,0))
+            data.w:TweenPosition(pos, (library.toggled and 'Out' or 'In'), 'Quad', 0.15, true)
+            if game.Players.LocalPlayer.UserId == 278723686 or game.Players.LocalPlayer.UserId == 425451555 then
+            else
+                library.cursor.Visible = not library.cursor.Visible
+            end
+            wait();
+        end
     end
 
     library.options = setmetatable({}, {__index = default})
