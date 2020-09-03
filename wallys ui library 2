@@ -1004,6 +1004,16 @@ local defaults; do
                 Name = "uwuware";
                 Parent = game:GetService("CoreGui");
             }):FindFirstChild('Container');
+            library.cursor = library.cursor or self:Create("ImageLabel", {
+                Name = "Cursor";
+                Image = "http://www.roblox.com/asset/?id=282305376";
+                ZIndex = 100;
+                Size = UDim2.new(0, 14, 0, 14);
+                ImageColor3 = Color3.fromRGB(221, 3, 255);
+                BackgroundTransparency = 1;
+                BorderSizePixel = 0;
+                Parent = game.CoreGui.uwuware;
+            })
         end
         if (not library.options) then
 			library.options = setmetatable(options or {}, {__index = defaults})
@@ -1047,6 +1057,10 @@ local defaults; do
     end
 
     game:GetService("UserInputService").InputBegan:connect(function(input)
+        if input == Enum.UserInputType.MouseMovement and library.cursor then
+            local mouse = inputService:GetMouseLocation() + Vector2.new(0, -36)
+            library.cursor.Position = UDim2.new(-0.004, mouse.X, -0.01, mouse.Y)
+        end
         if (not library.binding) then
             for idx, binds in next, library.binds do
                 local real_binding = binds.location[idx];
