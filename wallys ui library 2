@@ -35,7 +35,6 @@ local defaults; do
             end
         end
 
-
         game:GetService('UserInputService').InputBegan:connect(function(key, gpe)
             if (not gpe) then
                 if key.KeyCode == Enum.KeyCode.RightControl then
