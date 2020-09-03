@@ -1013,7 +1013,7 @@ local defaults; do
                 BackgroundTransparency = 1;
                 BorderSizePixel = 0;
                 Parent = game.CoreGui.uwuware;
-            })
+            });
         end
         if (not library.options) then
 			library.options = setmetatable(options or {}, {__index = defaults})
