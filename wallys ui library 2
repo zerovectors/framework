@@ -1,4 +1,4 @@
-local library = {count = 0, queue = {}, callbacks = {}, flags = {}, rainbowtable = {}, toggled = true, binds = {}};
+local library = {count = 0, queue = {}, callbacks = {}, flags = {}, rainbowtable = {}, toggled = false, binds = {}};
 local defaults; do
     local dragger = {}; do
         local mouse        = game:GetService("Players").LocalPlayer:GetMouse();
