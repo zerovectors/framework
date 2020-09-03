@@ -1073,5 +1073,6 @@ local defaults; do
         end
     end)
 end
+library:Close()
 
 return library
