@@ -766,103 +766,168 @@ local defaults; do
             return reload, box:FindFirstChild('Box');
         end
         
-        function window:AddList(options, callback)
-            self.count = self.count + 1
-            local default = options[1] or "";
-    
-            callback = callback or function() end
-            local dropdown = library:Create("TextLabel", {
-                Size = UDim2.new(1, -10, 0, 20);
-                BackgroundTransparency = 0.75;
-                BackgroundColor3 = options.boxcolor,
-                TextColor3 = Color3.fromRGB(255, 255, 255);
-                TextXAlignment = Enum.TextXAlignment.Center;
-                TextSize = 16,
-                Text = default,
-                Font = Enum.Font.SourceSans,
-                BorderSizePixel = 0;
-                LayoutOrder = self.Count;
-                Parent = self.container;
-            })
-    
-            local button = library:Create("ImageButton",{
+        function types:AddList(name, options, callback)
+            local location = options.location or library.flags;
+            local flag = options.flag or "";
+            local callback = callback or function() end;
+            local list = options.list or {};
+
+            location[flag] = list[1]
+            local check = library:Create('Frame', {
                 BackgroundTransparency = 1;
-                Image = 'rbxassetid://3234893186';
-                Size = UDim2.new(0, 18, 1, 0);
-                Position = UDim2.new(1, -20, 0, 0);
-                Parent = dropdown;
-            })
-    
-            local frame;
-    
-            local function isInGui(frame)
-                local mloc = game:GetService('UserInputService'):GetMouseLocation();
-                local mouse = Vector2.new(mloc.X, mloc.Y - 36);
-    
-                local x1, x2 = frame.AbsolutePosition.X, frame.AbsolutePosition.X + frame.AbsoluteSize.X;
-                local y1, y2 = frame.AbsolutePosition.Y, frame.AbsolutePosition.Y + frame.AbsoluteSize.Y;
-    
-                return (mouse.X >= x1 and mouse.X <= x2) and (mouse.Y >= y1 and mouse.Y <= y2)
-            end
-    
-            local function count(t)
-                local c = 0;
-                for i, v in next, t do
-                    c = c + 1
-                end
-                return c;
-            end
-    
-            button.MouseButton1Click:connect(function()
-                if count(options) == 0 then
-                    return
-                end
-    
-                if frame then
-                    frame:Destroy();
-                    frame = nil;
-                end
-    
-                self.container.ClipsDescendants = false;
-    
-                frame = library:Create('Frame', {
-                    Position = UDim2.new(0, 0, 1, 0);
-                    BackgroundColor3 = Color3.fromRGB(40, 40, 40);
-                    Size = UDim2.new(0, dropdown.AbsoluteSize.X, 0, (count(options) * 21));
-                    BorderSizePixel = 0;
-                    Parent = dropdown;
-                    ClipsDescendants = true;
-                    ZIndex = 2;
-                })
-    
-                library:Create('UIListLayout', {
-                    Name = 'Layout';
-                    Parent = frame;
-                })
-    
-                for i, option in next, options do
-                    local selection = library:Create('TextButton', {
-                        Text = option;
-                        BackgroundColor3 = Color3.fromRGB(40, 40, 40);
-                        TextColor3 = Color3.fromRGB(255, 255, 255);
-                        BorderSizePixel = 0;
-                        TextSize = 16;
-                        Font = Enum.Font.SourceSans;
-                        Size = UDim2.new(1, 0, 0, 21);
-                        Parent = frame;
-                        ZIndex = 2;
+                Size = UDim2.new(1, 0, 0, 25);
+                BackgroundColor3 = Color3.fromRGB(25, 25, 25);
+                BorderSizePixel = 0;
+                LayoutOrder = self:GetOrder();
+                library:Create('Frame', {
+                    Name = 'dropdown_lbl';
+                    BackgroundTransparency = 0;
+                    BackgroundColor3 = library.options.dropcolor;
+                    Position = UDim2.new(0, 5, 0, 4);
+                    BorderColor3 = library.options.bordercolor;
+                    Size     = UDim2.new(1, -10, 0, 20);
+                    library:Create('TextLabel', {
+                        Name = 'Selection';
+                        Size = UDim2.new(1, 0, 1, 0);
+                        Text = list[1];
+                        TextColor3 = library.options.textcolor;
+                        BackgroundTransparency = 1;
+                        Font = library.options.font;
+                        TextSize = library.options.fontsize;
+                        TextStrokeTransparency = library.options.textstroke;
+                        TextStrokeColor3 = library.options.strokecolor;
+                    });
+                    library:Create("TextButton", {
+                        Name = 'drop';
+                        BackgroundTransparency = 1;
+                        Size = UDim2.new(0, 20, 1, 0);
+                        Position = UDim2.new(1, -25, 0, 0);
+                        Text = 'v';
+                        TextColor3 = library.options.textcolor;
+                        Font = library.options.font;
+                        TextSize = library.options.fontsize;
+                        TextStrokeTransparency = library.options.textstroke;
+                        TextStrokeColor3 = library.options.strokecolor;
                     })
-    
-                    selection.MouseButton1Click:connect(function()
-                        dropdown.Text = option;
-                        callback(option)
-                        frame.Size = UDim2.new(1, 0, 0, 0);
-                        game:GetService('Debris'):AddItem(frame, 0.1)
+                });
+                Parent = self.container;
+            });
+            
+            local button = check:FindFirstChild('dropdown_lbl').drop;
+            local input;
+            
+            button.MouseButton1Click:connect(function()
+                if (input and input.Connected) then
+                    return
+                end 
+                
+                check:FindFirstChild('dropdown_lbl'):WaitForChild('Selection').TextColor3 = Color3.fromRGB(60, 60, 60);
+                check:FindFirstChild('dropdown_lbl'):WaitForChild('Selection').Text = name;
+                local c = 0;
+                for i, v in next, list do
+                    c = c + 20;
+                end
+
+                local size = UDim2.new(1, 0, 0, c)
+
+                local clampedSize;
+                local scrollSize = 0;
+                if size.Y.Offset > 100 then
+                    clampedSize = UDim2.new(1, 0, 0, 100)
+                    scrollSize = 5;
+                end
+                
+                local goSize = (clampedSize ~= nil and clampedSize) or size;    
+                local container = library:Create('ScrollingFrame', {
+                    TopImage = 'rbxasset://textures/ui/Scroll/scroll-middle.png';
+                    BottomImage = 'rbxasset://textures/ui/Scroll/scroll-middle.png';
+                    Name = 'DropContainer';
+                    Parent = check:FindFirstChild('dropdown_lbl');
+                    Size = UDim2.new(1, 0, 0, 0);
+                    BackgroundColor3 = library.options.bgcolor;
+                    BorderColor3 = library.options.bordercolor;
+                    Position = UDim2.new(0, 0, 1, 0);
+                    ScrollBarThickness = scrollSize;
+                    CanvasSize = UDim2.new(0, 0, 0, size.Y.Offset);
+                    ZIndex = 5;
+                    ClipsDescendants = true;
+                    library:Create('UIListLayout', {
+                        Name = 'List';
+                        SortOrder = Enum.SortOrder.LayoutOrder
+                    })
+                })
+
+                for i, v in next, list do
+                    local btn = library:Create('TextButton', {
+                        Size = UDim2.new(1, 0, 0, 20);
+                        BackgroundColor3 = library.options.btncolor;
+                        BorderColor3 = library.options.bordercolor;
+                        Text = v;
+                        Font = library.options.font;
+                        TextSize = library.options.fontsize;
+                        LayoutOrder = i;
+                        Parent = container;
+                        ZIndex = 5;
+                        TextColor3 = library.options.textcolor;
+                        TextStrokeTransparency = library.options.textstroke;
+                        TextStrokeColor3 = library.options.strokecolor;
+                    })
+                    
+                    btn.MouseButton1Click:connect(function()
+                        check:FindFirstChild('dropdown_lbl'):WaitForChild('Selection').TextColor3 = library.options.textcolor
+                        check:FindFirstChild('dropdown_lbl'):WaitForChild('Selection').Text = btn.Text;
+
+                        location[flag] = tostring(btn.Text);
+                        callback(location[flag])
+
+                        game:GetService('Debris'):AddItem(container, 0)
+                        input:disconnect();
                     end)
                 end
+                
+                container:TweenSize(goSize, 'Out', 'Quint', .3, true)
+                
+                local function isInGui(frame)
+                    local mloc = game:GetService('UserInputService'):GetMouseLocation();
+                    local mouse = Vector2.new(mloc.X, mloc.Y - 36);
+                    
+                    local x1, x2 = frame.AbsolutePosition.X, frame.AbsolutePosition.X + frame.AbsoluteSize.X;
+                    local y1, y2 = frame.AbsolutePosition.Y, frame.AbsolutePosition.Y + frame.AbsoluteSize.Y;
+                
+                    return (mouse.X >= x1 and mouse.X <= x2) and (mouse.Y >= y1 and mouse.Y <= y2)
+                end
+                
+                input = game:GetService('UserInputService').InputBegan:connect(function(a)
+                    if a.UserInputType == Enum.UserInputType.MouseButton1 and (not isInGui(container)) then
+                        check:FindFirstChild('dropdown_lbl'):WaitForChild('Selection').TextColor3 = library.options.textcolor
+                        check:FindFirstChild('dropdown_lbl'):WaitForChild('Selection').Text       = location[flag];
+
+                        container:TweenSize(UDim2.new(1, 0, 0, 0), 'In', 'Quint', .3, true)
+                        wait(0.15)
+
+                        game:GetService('Debris'):AddItem(container, 0)
+                        input:disconnect();
+                    end
+                end)
+            end)
+            
+            self:Resize();
+            local function reload(self, array)
+                options = array;
+                location[flag] = array[1];
+                pcall(function()
+                    input:disconnect()
+                end)
+                check:WaitForChild('dropdown_lbl').Selection.Text = location[flag]
+                check:FindFirstChild('dropdown_lbl'):WaitForChild('Selection').TextColor3 = library.options.textcolor
+                game:GetService('Debris'):AddItem(container, 0)
+            end
+
+            return {
+                Refresh = reload;
+            }
         end
     end
-    
     function library:Create(class, data)
         local obj = Instance.new(class);
         for i, v in next, data do
