@@ -6,7 +6,7 @@
 
 local ui_options = {
 	main_color = Color3.fromRGB(41, 74, 122),
-	min_size = Vector2.new(400, 300),
+	min_size = Vector2.new(1940, 960),
 	toggle_key = Enum.KeyCode.RightShift,
 	can_resize = true,
 }
@@ -957,7 +957,7 @@ function library:AddWindow(title, options)
 	local Window = Prefabs:FindFirstChild("Window"):Clone()
 	Window.Parent = Windows
 	Window:FindFirstChild("Title").Text = title
-	Window.Size = UDim2.new(0, options.min_size.X, 0, options.min_size.Y)
+	Window.Size = UDim2.new(1, 20, 1, -20)
 	Window.ZIndex = Window.ZIndex + (windows * 10)
 
 	do -- Altering Window Color
