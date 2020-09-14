@@ -577,13 +577,13 @@ function createToggle(option, parent)
 		self.state = state
 		Toggle.Text = self.state and "ON" or "OFF"
 		Toggle.TextColor3 = self.state and Color3.fromRGB(255, 51, 255) or Color3.fromRGB(255, 255, 255)
-		if state then
-			Toggle.Text = self.state and "ON"
+--[[		if state then
+			Toggle.Text = self.state and "ON" or "OFF"
 		    Toggle.TextColor3 = self.state and Color3.fromRGB(255, 51, 255)
 		else
-			Toggle.Text = self.state and "OFF"
+			Toggle.Text = self.state and "OFF" or "ON"
 		    Toggle.TextColor3 = self.state and Color3.fromRGB(255, 255, 255)
-		end
+		end]]
 		self.callback(state)
     end
     
