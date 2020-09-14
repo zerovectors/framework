@@ -607,7 +607,7 @@ function createButton(option, parent)
 		LayoutOrder = option.position,
 		Size = UDim2.new(1, 0, 0, 34),
 		BackgroundTransparency = 1,
-		Text = " >" .. option.text,
+		Text = "  > " .. option.text,
 		TextXAlignment = Enum.TextXAlignment.Left,
 		TextSize = 17,
 		Font = Enum.Font.Gotham,
