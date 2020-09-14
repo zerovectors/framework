@@ -164,7 +164,7 @@ local function createOptionHolder(holderTitle, parent, parentTable, subHolder)
 
 	layout.Changed:connect(function()
 		parentTable.content.Size = UDim2.new(1, 0, 0, layout.AbsoluteContentSize.Y)
-		parentTable.main.Size = #parentTable.options > 0 and parentTable.open and UDim2.new(0, 230, 0, layout.AbsoluteContentSize.Y + size) or UDim2.new(0, 230, 0, size)
+		parentTable.main.Size = #parentTable.options > 0 and parentTable.open and UDim2.new(0, 250, 0, layout.AbsoluteContentSize.Y + size) or UDim2.new(0, 250, 0, size)
 	end)
 
 	if not subHolder then
@@ -301,7 +301,7 @@ local function createFolderHolder(holderTitle, parent, parentTable, subHolder)
 
 	layout.Changed:connect(function()
 		parentTable.content.Size = UDim2.new(1, 0, 0, layout.AbsoluteContentSize.Y)
-		parentTable.main.Size = #parentTable.options > 0 and parentTable.open and UDim2.new(0, 230, 0, layout.AbsoluteContentSize.Y + size) or UDim2.new(0, 230, 0, size)
+		parentTable.main.Size = #parentTable.options > 0 and parentTable.open and UDim2.new(0, 250, 0, layout.AbsoluteContentSize.Y + size) or UDim2.new(0, 250, 0, size)
 	end)
 
 	if not subHolder then
@@ -426,7 +426,7 @@ local function createToggleFolderHolder(holderTitle, parent, parentTable, subHol
 
 	layout.Changed:connect(function()
 		parentTable.content.Size = UDim2.new(1, 0, 0, layout.AbsoluteContentSize.Y)
-		parentTable.main.Size = #parentTable.options > 0 and parentTable.open and UDim2.new(0, 230, 0, layout.AbsoluteContentSize.Y + size) or UDim2.new(0, 230, 0, size)
+		parentTable.main.Size = #parentTable.options > 0 and parentTable.open and UDim2.new(0, 250, 0, layout.AbsoluteContentSize.Y + size) or UDim2.new(0, 250, 0, size)
 	end)
 
 	if not subHolder then
