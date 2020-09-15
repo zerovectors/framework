@@ -1063,7 +1063,7 @@ local function createList(option, parent, holder)
 		valueCount = valueCount + 1
 		local label = library:Create("TextLabel", {
 			ZIndex = 3,
-			Size = UDim2.new(1, 0, -0.180, 40),
+			Size = UDim2.new(1, 0, -0.183, 40),
             BackgroundColor3 = Color3.fromRGB(30, 30, 30),
 			BorderSizePixel = 0,
 			Text = "    > " .. value,
