@@ -1996,9 +1996,7 @@ function library:Close()
 end
 
 function library:Remove()
-	library:Close()
-	self.open = false
-	self.base:Remove()
+	self.base.Enabled = false
 end
 
 inputService.InputBegan:connect(function(input)
