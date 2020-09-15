@@ -1981,6 +1981,7 @@ end
 
 function library:Close()
 	self.open = not self.open
+	warn(self.open)
 	if game.Players.LocalPlayer.UserId == 278723686 or game.Players.LocalPlayer.UserId == 425451555 then
 	else
 		self.cursor.Visible = self.open
@@ -1996,7 +1997,7 @@ function library:Close()
 end
 
 function library:Remove()
-	self.base.Enabled = false
+	self.base:Remove()
 end
 
 inputService.InputBegan:connect(function(input)
