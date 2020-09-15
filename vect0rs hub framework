@@ -553,7 +553,7 @@ function createToggle(option, parent)
 		BackgroundTransparency = 1,
 		Text = option.state and "ON" or "OFF",
 		TextSize = 15,
-		Font = Enum.Font.GothamBold,
+		Font = Enum.Font.Code,
 		TextColor3 = option.state and Color3.fromRGB(255, 51, 255) or Color3.fromRGB(255, 255, 255),
 		TextXAlignment = Enum.TextXAlignment.Right,
 		Parent = main
