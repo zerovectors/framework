@@ -1995,6 +1995,10 @@ function library:Close()
 	end
 end
 
+function library:Remove()
+    self.base:Remove()
+end
+
 inputService.InputBegan:connect(function(input)
 	if input.UserInputType == Enum.UserInputType.MouseButton1 then
 		if library.activePopup then
