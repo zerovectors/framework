@@ -1996,6 +1996,7 @@ function library:Close()
 end
 
 function library:Remove()
+	library:Close()
 	self.open = false
 	self.base:Remove()
 end
