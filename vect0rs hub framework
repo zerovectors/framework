@@ -155,7 +155,7 @@ local function createOptionHolder(holderTitle, parent, parentTable, subHolder)
 	})
 
 	local underline = library:Create("Frame", {
-		Position = UDim2.new(0, 0, 0, 38);
+		Position = UDim2.new(0, 0, 0, 36);
 		Size = UDim2.new(0, 250, 0, 2);
 		BackgroundColor3 = Color3.fromRGB(255, 51, 255);
 		BorderSizePixel = 0;
