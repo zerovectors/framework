@@ -1032,35 +1032,36 @@ local function createList(option, parent, holder)
 	layout.Changed:connect(function()
 		option.mainHolder.Size = UDim2.new(0, 240, 0, (valueCount > 4 and (4 * 40) or layout.AbsoluteContentSize.Y) + 12)
 		content.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y + 12)
-    end)
+	end)
+	
+	toggle.MouseButton1Down:Connect(function()
+		if library.activePopup then
+			library.activePopup:Close()
+		end
+		local position = main.AbsolutePosition
+		option.mainHolder.Position = UDim2.new(0, position.X - 5, 0, position.Y - 10 + 55)
+		option.open = true
+		option.mainHolder.Visible = true
+		toggle.Text = option.open and "ʌ" or "v"
+		library.activePopup = option
+		content.ScrollBarThickness = 6
+		tweenService:Create(option.mainHolder, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundTransparency = 0, Position = UDim2.new(0, position.X - 5, 0, position.Y - 4)}):Play()
+		tweenService:Create(option.mainHolder, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0.1), {Position = UDim2.new(0, position.X - 5, 0, position.Y + 55)}):Play()
+		for _,label in next, content:GetChildren() do
+			if label:IsA"TextLabel" then
+				tweenService:Create(label, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0, TextTransparency = 0}):Play()
+			end
+		end
+	end)
 
-    round.InputBegan:connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            if library.activePopup then
-                library.activePopup:Close()
-            end
-            local position = main.AbsolutePosition
-            option.mainHolder.Position = UDim2.new(0, position.X - 5, 0, position.Y - 10 + 55)
-            option.open = true
-            option.mainHolder.Visible = true
-            toggle.Text = option.open and "ʌ" or "v"
-            library.activePopup = option
-            content.ScrollBarThickness = 6
-            tweenService:Create(option.mainHolder, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundTransparency = 0, Position = UDim2.new(0, position.X - 5, 0, position.Y - 4)}):Play()
-            tweenService:Create(option.mainHolder, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0.1), {Position = UDim2.new(0, position.X - 5, 0, position.Y + 55)}):Play()
-            for _,label in next, content:GetChildren() do
-                if label:IsA"TextLabel" then
-                    tweenService:Create(label, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0, TextTransparency = 0}):Play()
-                end
-            end
-        end
-        if input.UserInputType == Enum.UserInputType.MouseMovement then
+	title.InputBegan:connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			inContact = true
 			tweenService:Create(toggle, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 51, 255)}):Play()
 		end
-    end)
+	end)
 
-    round.InputEnded:connect(function(input)
+    title.InputEnded:connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			inContact = false
 			tweenService:Create(toggle, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
