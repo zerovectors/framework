@@ -347,16 +347,6 @@ local function createFolderHolder(holderTitle, parent, parentTable, subHolder)
     close.MouseLeave:connect(function()
         tweenService:Create(close, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
     end)
-    
-    title.MouseEnter:connect(function()
-        tweenService:Create(title, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 51, 255)}):Play()
-    end)
-
-    title.MouseLeave:connect(function()
-        if option.state == false then
-            tweenService:Create(title, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-        end
-    end)
 
 	function parentTable:SetTitle(newTitle)
 		title.Text = tostring(newTitle)
