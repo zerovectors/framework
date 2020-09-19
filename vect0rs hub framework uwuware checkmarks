@@ -578,7 +578,6 @@ function createToggle(option, parent)
 	main.InputBegan:connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			option:SetState(not option.state)
-			library:SendNotification("Set toggle ["..main.Text.."] to "..option.state and "ON" or "OFF")
 		end
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			inContact = true
@@ -616,6 +615,9 @@ function createToggle(option, parent)
 
 	if option.state then
 		delay(1, function() option.callback(true) end)
+		library:SendNotification("Set toggle ["..main.Text.."] to ON")
+	else
+		library:SendNotification("Set toggle ["..main.Text.."] to OFF")
 	end
 
 	setmetatable(option, {__newindex = function(t, i, v)
