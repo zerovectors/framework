@@ -579,9 +579,9 @@ function createToggle(option, parent)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			option:SetState(not option.state)
 			if option.state then
-				library:SendNotification("Set toggle ["..main.Text.."] to ON"
+				library:SendNotification("Set toggle ["..main.Text.."] to ON")
 			else
-				library:SendNotification("Set toggle ["..main.Text.."] to OFF"
+				library:SendNotification("Set toggle ["..main.Text.."] to OFF")
 			end
 		end
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
