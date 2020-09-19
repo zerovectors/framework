@@ -578,6 +578,7 @@ function createToggle(option, parent)
 	main.InputBegan:connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			option:SetState(not option.state)
+			library:SendNotification("Set toggle ["..main.Text.."] to "..option.state and "ON" or "OFF")
 		end
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			inContact = true
