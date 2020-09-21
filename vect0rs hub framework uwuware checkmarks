@@ -377,6 +377,7 @@ local function createToggleFolderHolder(holderTitle, parent, parentTable, subHol
         Text = holderTitle,
 		TextSize = subHolder and 16 or 17,
 		Font = Enum.Font.GothamBold,
+		TextXAlignment = Enum.TextXAlignment.Left,
         BorderSizePixel = 0,
 		TextColor3 = Color3.fromRGB(255, 255, 255),
         Parent = parentTable.main,
@@ -480,7 +481,9 @@ local function createToggleFolderHolder(holderTitle, parent, parentTable, subHol
 
 	title.InputEnded:connect(function()
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
-			tweenService:Create(title, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+			if option.state == false then
+				tweenService:Create(title, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+			end
 		end
 	end)
 
