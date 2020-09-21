@@ -370,17 +370,15 @@ local function createToggleFolderHolder(holderTitle, parent, parentTable, subHol
 		})
 	end
 
-	local title = library:Create("TextButton", {
+	local title = library:Create("TextLabel", {
 		Size = UDim2.new(0, 250, 0, size),
 		BackgroundTransparency = subHolder and 0 or 1,
 		BackgroundColor3 = Color3.fromRGB(4, 4, 4),
-        Text = " > "..holderTitle,
-        TextXAlignment = Enum.TextXAlignment.Left,
-        AutoButtonColor = false,
-        TextSize = subHolder and 16 or 17,
+        Text = holderTitle,
+		TextSize = subHolder and 16 or 17,
 		Font = Enum.Font.GothamBold,
         BorderSizePixel = 0,
-		TextColor3 = option.state and Color3.fromRGB(255, 51, 255) or Color3.fromRGB(255, 255, 255),
+		TextColor3 = Color3.fromRGB(255, 255, 255),
         Parent = parentTable.main,
 	})
 
@@ -458,31 +456,32 @@ local function createToggleFolderHolder(holderTitle, parent, parentTable, subHol
 			parentTable.main:TweenSize(#parentTable.options > 0 and parentTable.open and UDim2.new(0, 250, 0, layout.AbsoluteContentSize.Y + size) or UDim2.new(0, 250, 0, size), "Out", "Quad", 0.2, true)
 		end
 	end)
-    
-    title.MouseEnter:connect(function()
-        tweenService:Create(title, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 51, 255)}):Play()
-    end)
-
-    title.MouseLeave:connect(function()
-        if option.state == false then
-            tweenService:Create(title, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-        end
-    end)
 
 	function parentTable:SetTitle(newTitle)
 		title.Text = tostring(newTitle)
     end
-    
-    title.MouseButton1Down:Connect(function()
-        option.state = not option.state
-		if option.state then
-			title.TextColor3 = Color3.fromRGB(255, 51, 255)
-		else
-			title.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+	title.InputBegan:connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			option.state = not option.state
+			if option.state then
+				title.TextColor3 = Color3.fromRGB(255, 51, 255)
+			else
+				title.TextColor3 = Color3.fromRGB(255, 255, 255)
+			end
+			library.flags[option.flag] = option.state
+			option.state = option.state
+			option.callback(option.state)
 		end
-		library.flags[option.flag] = option.state
-		option.state = option.state
-        option.callback(option.state)
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			tweenService:Create(title, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 51, 255)}):Play()
+		end
+	end)
+
+	title.InputEnded:connect(function()
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			tweenService:Create(title, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+		end
 	end)
 
 	function option:SetState(state)
