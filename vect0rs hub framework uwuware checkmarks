@@ -371,7 +371,7 @@ local function createToggleFolderHolder(holderTitle, parent, parentTable, subHol
 	end
 
 	local title = library:Create("TextLabel", {
-		Size = UDim2.new(0, 250, 0, size),
+		Size = UDim2.new(0, 220, 0, size),
 		BackgroundTransparency = subHolder and 0 or 1,
 		BackgroundColor3 = Color3.fromRGB(4, 4, 4),
         Text = " > "..holderTitle,
