@@ -374,7 +374,7 @@ local function createToggleFolderHolder(holderTitle, parent, parentTable, subHol
 		Size = UDim2.new(0, 250, 0, size),
 		BackgroundTransparency = subHolder and 0 or 1,
 		BackgroundColor3 = Color3.fromRGB(4, 4, 4),
-        Text = holderTitle,
+        Text = " > "..holderTitle,
 		TextSize = subHolder and 16 or 17,
 		Font = Enum.Font.GothamBold,
 		TextXAlignment = Enum.TextXAlignment.Left,
@@ -481,7 +481,7 @@ local function createToggleFolderHolder(holderTitle, parent, parentTable, subHol
 		end
 	end)
 
-	title.InputEnded:connect(function()
+	title.InputEnded:connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			inContact = false
 			if option.state == false then
