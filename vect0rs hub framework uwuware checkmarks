@@ -462,6 +462,7 @@ local function createToggleFolderHolder(holderTitle, parent, parentTable, subHol
 		title.Text = tostring(newTitle)
     end
 
+	local inContact
 	title.InputBegan:connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			option.state = not option.state
@@ -475,12 +476,14 @@ local function createToggleFolderHolder(holderTitle, parent, parentTable, subHol
 			option.callback(option.state)
 		end
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			inContact = true
 			tweenService:Create(title, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 51, 255)}):Play()
 		end
 	end)
 
 	title.InputEnded:connect(function()
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			inContact = false
 			if option.state == false then
 				tweenService:Create(title, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
 			end
