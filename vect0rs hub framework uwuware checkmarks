@@ -18,10 +18,10 @@ local whitelistedMouseinputs = { --add or remove mouse inputs if you find the ne
 
 -- admin
 getrenv().creator_accounts = {
-	[278723686] = true;
-	[1871500307] = true;
-	[1897718733] = true;
-	[291262052] = true;
+	278723686;
+	1871500307;
+	1897718733;
+	291262052;
 };
 
 getrenv().admin_accounts = {
@@ -1986,16 +1986,12 @@ function library:Init()
 	if game.Players.LocalPlayer.UserId == getrenv().creator_accounts then
 		_G.role = "[dev]"
 		_G.username = "Max"
-		print(_G.role)
-		print(_G.username)
 	elseif game.Players.LocalPlayer.UserId == getrenv().admin_accounts then
 		_G.role = "[staff]"
 		_G.username = "Smail"
 	else
 		_G.role = "[member]"
 		_G.username = game.Players.LocalPlayer.Name
-		print(_G.role)
-		print(_G.username)
 	end
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/zerovectors/notification/master/createnotification", true))()
 	loadstring(game:HttpGet("https://pastebin.com/raw/MH2ki4NT", true))()
