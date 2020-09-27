@@ -1983,18 +1983,6 @@ function library:Init()
     splitline.BackgroundColor3 = Color3.fromRGB(221, 3, 255)
     splitline.BorderSizePixel = 0
 	splitline.Size = UDim2.new(0, 1917, 0, 5)
-	if game.Players.LocalPlayer.UserId == getrenv().creator_accounts then
-		_G.role = "[dev]"
-		_G.username = "Max"
-	elseif game.Players.LocalPlayer.UserId == getrenv().admin_accounts then
-		_G.role = "[staff]"
-		_G.username = "Smail"
-	else
-		_G.role = "[member]"
-		_G.username = game.Players.LocalPlayer.Name
-	end
-	print(_G.role)
-	print(_G.username)
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/zerovectors/notification/master/createnotification", true))()
 	loadstring(game:HttpGet("https://pastebin.com/raw/MH2ki4NT", true))()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/zerovectors/ui-library-test/master/watermark", true))()
@@ -2018,6 +2006,18 @@ function library:Init()
 			end
 		end)
 	end)
+	if game.Players.LocalPlayer.UserId == getrenv().creator_accounts then
+		_G.role = "[dev]"
+		_G.username = "Max"
+	elseif game.Players.LocalPlayer.UserId == getrenv().admin_accounts then
+		_G.role = "[staff]"
+		_G.username = "Smail"
+	else
+		_G.role = "[member]"
+		_G.username = game.Players.LocalPlayer.Name
+	end
+	print(_G.role)
+	print(_G.username)
 end
 
 function library:Close()
