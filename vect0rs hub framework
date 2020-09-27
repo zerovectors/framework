@@ -17,12 +17,12 @@ local whitelistedMouseinputs = { --add or remove mouse inputs if you find the ne
 }
 
 -- admin
-
 getrenv().creator_accounts = {
 	[278723686] = true;
 	[1871500307] = true;
 	[1897718733] = true;
 };
+
 getrenv().admin_accounts = {
 	[425451555] = true;
 };
