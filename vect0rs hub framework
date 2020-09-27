@@ -130,15 +130,15 @@ local function createOptionHolder(holderTitle, parent, parentTable, subHolder)
         Parent = title
 	})
 
-	local close = library:Create("TextButton", {
+	local close = library:Create("ImageLabel", {
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		Size = UDim2.new(1, -size - 10, 1, -size - 10),
-        Text = parentTable.open and "-" or "v",
-        TextSize = subHolder and 16 or 17,
-		Font = Enum.Font.GothamBold,
-        TextColor3 = Color3.fromRGB(255, 255, 255),
+		Rotation = parentTable.open and 90 or 180,
 		BackgroundTransparency = 1,
+		Image = "rbxassetid://4918373417",
+		ImageColor3 = parentTable.open and Color3.fromRGB(255, 51, 255) or Color3.fromRGB(255, 255, 255),
+		ScaleType = Enum.ScaleType.Fit,
 		Parent = closeHolder
 	})
 
@@ -200,24 +200,16 @@ local function createOptionHolder(holderTitle, parent, parentTable, subHolder)
 
 	closeHolder.InputBegan:connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            parentTable.open = not parentTable.open
-            close.Text = parentTable.open and "-" or "v"
+			parentTable.open = not parentTable.open
+			tweenService:Create(close, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Rotation = parentTable.open and 90 or 180, ImageColor3 = parentTable.open and Color3.fromRGB(255, 51, 255) or Color3.fromRGB(255, 255, 255)}):Play()
 			if subHolder then
-                tweenService:Create(title, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundColor3 = parentTable.open and Color3.fromRGB(12, 12, 12) or Color3.fromRGB(12, 12, 12)}):Play()
+				tweenService:Create(title, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundColor3 = parentTable.open and Color3.fromRGB(16, 16, 16) or Color3.fromRGB(20, 20, 20)}):Play()
 			else
 				tweenService:Create(round, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundColor3 = parentTable.open and Color3.fromRGB(20, 20, 20) or Color3.fromRGB(6, 6, 6)}):Play()
 			end
 			parentTable.main:TweenSize(#parentTable.options > 0 and parentTable.open and UDim2.new(0, 250, 0, layout.AbsoluteContentSize.Y + size) or UDim2.new(0, 250, 0, size), "Out", "Quad", 0.2, true)
 		end
-    end)
-    
-    closeHolder.MouseEnter:connect(function()
-        tweenService:Create(close, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 51, 255)}):Play()
-    end)
-
-    closeHolder.MouseLeave:connect(function()
-        tweenService:Create(close, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-    end)
+	end)
 
 	function parentTable:SetTitle(newTitle)
 		title.Text = tostring(newTitle)
@@ -268,22 +260,22 @@ local function createFolderHolder(holderTitle, parent, parentTable, subHolder)
 	})
 
 	local closeHolder = library:Create("Frame", {
-		Position = UDim2.new(1, 0, 0, 0),
+		Position = UDim2.new(0, 250, 0, 0),
 		Size = UDim2.new(-1, 0, 1, 0),
 		SizeConstraint = Enum.SizeConstraint.RelativeYY,
         BackgroundTransparency = 1,
 		Parent = title
     })
 
-	local close = library:Create("TextButton", {
+	local close = library:Create("ImageLabel", {
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		Size = UDim2.new(1, -size - 10, 1, -size - 10),
-        Text = parentTable.open and "ʌ" or "v",
-        Font = Enum.Font.SciFi,
-        TextColor3 = Color3.fromRGB(255, 255, 255),
-        TextSize = 14,
+		Rotation = parentTable.open and 90 or 180,
 		BackgroundTransparency = 1,
+		Image = "rbxassetid://4918373417",
+		ImageColor3 = parentTable.open and Color3.fromRGB(255, 51, 255) or Color3.fromRGB(255, 255, 255),
+		ScaleType = Enum.ScaleType.Fit,
 		Parent = closeHolder
 	})
 
@@ -329,24 +321,18 @@ local function createFolderHolder(holderTitle, parent, parentTable, subHolder)
 		end)
 	end
 
-	close.MouseButton1Down:Connect(function()
-        parentTable.open = not parentTable.open
-        close.Text = parentTable.open and "ʌ" or "v"
-		if subHolder then
-            tweenService:Create(title, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundColor3 = parentTable.open and Color3.fromRGB(4, 4, 4) or Color3.fromRGB(4, 4, 4)}):Play()
-		else
-			tweenService:Create(round, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundColor3 = parentTable.open and Color3.fromRGB(20, 20, 20) or Color3.fromRGB(6, 6, 6)}):Play()
+	closeHolder.InputBegan:connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			parentTable.open = not parentTable.open
+			tweenService:Create(close, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Rotation = parentTable.open and 90 or 180, ImageColor3 = parentTable.open and Color3.fromRGB(255, 51, 255) or Color3.fromRGB(255, 255, 255)}):Play()
+			if subHolder then
+				tweenService:Create(title, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundColor3 = parentTable.open and Color3.fromRGB(16, 16, 16) or Color3.fromRGB(20, 20, 20)}):Play()
+			else
+				tweenService:Create(round, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundColor3 = parentTable.open and Color3.fromRGB(20, 20, 20) or Color3.fromRGB(6, 6, 6)}):Play()
+			end
+			parentTable.main:TweenSize(#parentTable.options > 0 and parentTable.open and UDim2.new(0, 250, 0, layout.AbsoluteContentSize.Y + size) or UDim2.new(0, 250, 0, size), "Out", "Quad", 0.2, true)
 		end
-		parentTable.main:TweenSize(#parentTable.options > 0 and parentTable.open and UDim2.new(0, 250, 0, layout.AbsoluteContentSize.Y + size) or UDim2.new(0, 250, 0, size), "Out", "Quad", 0.2, true)
-    end)
-    
-    close.MouseEnter:connect(function()
-        tweenService:Create(close, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 51, 255)}):Play()
-    end)
-
-    close.MouseLeave:connect(function()
-        tweenService:Create(close, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-    end)
+	end)
 
 	function parentTable:SetTitle(newTitle)
 		title.Text = tostring(newTitle)
@@ -360,7 +346,7 @@ local function createToggleFolderHolder(holderTitle, parent, parentTable, subHol
 	parentTable.main = library:Create("ImageButton", {
 		LayoutOrder = subHolder and parentTable.position or 0,
 		Position = UDim2.new(0, 20 + (250 * (parentTable.position or 0)), 0, 20),
-		Size = UDim2.new(0, 230, 0, size),
+		Size = UDim2.new(0, 250, 0, size),
         BackgroundTransparency = 0,
         Image = "rbxassetid://3570695787",
         BorderSizePixel = 0,
@@ -384,30 +370,38 @@ local function createToggleFolderHolder(holderTitle, parent, parentTable, subHol
 		})
 	end
 
-	local title = library:Create("TextButton", {
-		Size = UDim2.new(0, 250, 0, size),
+	local title = library:Create("TextLabel", {
+		Size = UDim2.new(0, 220, 0, size),
 		BackgroundTransparency = subHolder and 0 or 1,
 		BackgroundColor3 = Color3.fromRGB(4, 4, 4),
         Text = " > "..holderTitle,
-        TextSize = subHolder and 16 or 17,
+		TextSize = subHolder and 16 or 17,
 		Font = Enum.Font.GothamBold,
-        TextXAlignment = Enum.TextXAlignment.Left,
-        AutoButtonColor = false,
+		TextXAlignment = Enum.TextXAlignment.Left,
         BorderSizePixel = 0,
-		TextColor3 = option.state and Color3.fromRGB(255, 51, 255) or Color3.fromRGB(255, 255, 255),
+		TextColor3 = Color3.fromRGB(255, 255, 255),
         Parent = parentTable.main,
 	})
 
-	local close = library:Create("TextButton", {
-		AnchorPoint = Vector2.new(0.9, 0.5),
-		Position = UDim2.new(0.950, 0, 0.5, 0),
-		Size = UDim2.new(0, 25, 0, 22),
-        Text = parentTable.open and "ʌ" or "v",
-        Font = Enum.Font.SciFi,
-        TextColor3 = Color3.fromRGB(255, 255, 255),
-        TextSize = 14,
-		BackgroundTransparency = 1,
+	local closeHolder = library:Create("Frame", {
+		Position = UDim2.new(0, 250, 0, 0),
+		Size = UDim2.new(-1, 0, 1, 0),
+		SizeConstraint = Enum.SizeConstraint.RelativeYY,
+		BackgroundColor3 = Color3.fromRGB(4, 4, 4),
+		BorderSizePixel = 0,
 		Parent = title
+    })
+
+	local close = library:Create("ImageLabel", {
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.new(0.5, 0, 0.5, 0),
+		Size = UDim2.new(1, -size - 10, 1, -size - 10),
+		Rotation = parentTable.open and 90 or 180,
+		BackgroundTransparency = 1,
+		Image = "rbxassetid://4918373417",
+		ImageColor3 = parentTable.open and Color3.fromRGB(255, 51, 255) or Color3.fromRGB(255, 255, 255),
+		ScaleType = Enum.ScaleType.Fit,
+		Parent = closeHolder
 	})
 
 	parentTable.content = library:Create("Frame", {
@@ -452,49 +446,44 @@ local function createToggleFolderHolder(holderTitle, parent, parentTable, subHol
 		end)
     end
 
-    close.MouseButton1Down:Connect(function()
-        parentTable.open = not parentTable.open
-        close.Text = parentTable.open and "ʌ" or "v"
-		if subHolder then
-            tweenService:Create(title, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundColor3 = parentTable.open and Color3.fromRGB(4, 4, 4) or Color3.fromRGB(4, 4, 4)}):Play()
-		else
-			tweenService:Create(round, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundColor3 = parentTable.open and Color3.fromRGB(20, 20, 20) or Color3.fromRGB(6, 6, 6)}):Play()
+	closeHolder.InputBegan:connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			parentTable.open = not parentTable.open
+			tweenService:Create(close, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Rotation = parentTable.open and 90 or 180, ImageColor3 = parentTable.open and Color3.fromRGB(255, 51, 255) or Color3.fromRGB(255, 255, 255)}):Play()
+			parentTable.main:TweenSize(#parentTable.options > 0 and parentTable.open and UDim2.new(0, 250, 0, layout.AbsoluteContentSize.Y + size) or UDim2.new(0, 250, 0, size), "Out", "Quad", 0.2, true)
 		end
-		parentTable.main:TweenSize(#parentTable.options > 0 and parentTable.open and UDim2.new(0, 250, 0, layout.AbsoluteContentSize.Y + size) or UDim2.new(0, 250, 0, size), "Out", "Quad", 0.2, true)
-    end)
-    
-    close.MouseEnter:connect(function()
-        tweenService:Create(close, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 51, 255)}):Play()
-    end)
-
-    close.MouseLeave:connect(function()
-        tweenService:Create(close, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-    end)
-    
-    title.MouseEnter:connect(function()
-        tweenService:Create(title, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 51, 255)}):Play()
-    end)
-
-    title.MouseLeave:connect(function()
-        if option.state == false then
-            tweenService:Create(title, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-        end
-    end)
+	end)
 
 	function parentTable:SetTitle(newTitle)
 		title.Text = tostring(newTitle)
     end
-    
-    title.MouseButton1Down:Connect(function()
-        option.state = not option.state
-		if option.state then
-			title.TextColor3 = Color3.fromRGB(255, 51, 255)
-		else
-			title.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+	local inContact
+	title.InputBegan:connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			option.state = not option.state
+			if option.state then
+				title.TextColor3 = Color3.fromRGB(255, 51, 255)
+			else
+				title.TextColor3 = Color3.fromRGB(255, 255, 255)
+			end
+			library.flags[option.flag] = option.state
+			option.state = option.state
+			option.callback(option.state)
 		end
-		library.flags[option.flag] = option.state
-		option.state = option.state
-        option.callback(option.state)
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			inContact = true
+			tweenService:Create(title, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 51, 255)}):Play()
+		end
+	end)
+
+	title.InputEnded:connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			inContact = false
+			if option.state == false then
+				tweenService:Create(title, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+			end
+		end
 	end)
 
 	function option:SetState(state)
@@ -538,58 +527,97 @@ function createToggle(option, parent)
 		BackgroundTransparency = 1,
 		Text = " " .. option.text,
 		TextSize = 17,
-		Font = Enum.Font.Code,
+		Font = Enum.Font.Gotham,
 		TextColor3 = Color3.fromRGB(255, 255, 255),
 		TextXAlignment = Enum.TextXAlignment.Left,
 		Parent = parent.content
 	})
-	
-	local Toggle = library:Create("TextButton", {
-		LayoutOrder = option.position,
-		Position = UDim2.new(0, 230, 0, 4),
-		Size = UDim2.new(0, -230,1, -8),
+
+	local tickboxOutline = library:Create("ImageLabel", {
+		Position = UDim2.new(1, -6, 0, 4),
+		Size = UDim2.new(-1, 10, 1, -10),
+		SizeConstraint = Enum.SizeConstraint.RelativeYY,
 		BackgroundTransparency = 1,
-		Text = option.state and "ON" or "OFF",
-		TextSize = 18,
-		Font = Enum.Font.Code,
-		TextColor3 = option.state and Color3.fromRGB(255, 51, 255) or Color3.fromRGB(255, 255, 255),
-		TextXAlignment = Enum.TextXAlignment.Right,
+		Image = "rbxassetid://3570695787",
+		ImageColor3 = option.state and Color3.fromRGB(221, 3, 255) or Color3.fromRGB(100, 100, 100),
+		ScaleType = Enum.ScaleType.Slice,
+		SliceCenter = Rect.new(100, 100, 100, 100),
+		SliceScale = 0.02,
 		Parent = main
 	})
 
+	local tickboxInner = library:Create("ImageLabel", {
+		Position = UDim2.new(0, 2, 0, 2),
+		Size = UDim2.new(1, -4, 1, -4),
+		BackgroundTransparency = 1,
+		Image = "rbxassetid://3570695787",
+		ImageColor3 = option.state and Color3.fromRGB(221, 3, 255) or Color3.fromRGB(20, 20, 20),
+		ScaleType = Enum.ScaleType.Slice,
+		SliceCenter = Rect.new(100, 100, 100, 100),
+		SliceScale = 0.02,
+		Parent = tickboxOutline
+	})
+
+	local checkmarkHolder = library:Create("Frame", {
+		Position = UDim2.new(0, 4, 0, 4),
+		Size = option.state and UDim2.new(1, -8, 1, -8) or UDim2.new(0, 0, 1, -8),
+		BackgroundTransparency = 1,
+		ClipsDescendants = true,
+		Parent = tickboxOutline
+	})
+
+	local checkmark = library:Create("ImageLabel", {
+		Size = UDim2.new(1, 0, 1, 0),
+		SizeConstraint = Enum.SizeConstraint.RelativeYY,
+		BackgroundTransparency = 1,
+		Image = "rbxassetid://4919148038",
+		ImageColor3 = Color3.fromRGB(20, 20, 20),
+		Parent = checkmarkHolder
+	})
+
 	local inContact
-	Toggle.MouseButton1Down:Connect(function()
-        option.state = not option.state
-		if option.state then
-			Toggle.Text = "ON"
-			Toggle.TextColor3 = Color3.fromRGB(255, 51, 255)
-		else
-			Toggle.Text = "OFF"
-			Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+	main.InputBegan:connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			option:SetState(not option.state)
+			if option.state then
+				library:SendNotification("Set toggle ["..main.Text.."] to ON")
+			else
+				library:SendNotification("Set toggle ["..main.Text.."] to OFF")
+			end
 		end
-		library.flags[option.flag] = option.state
-		option.state = option.state
-        option.callback(option.state)
-        library:SendNotification("Set toggle ["..main.Text.."] to "..Toggle.Text)
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			inContact = true
+			if not option.state then
+				tweenService:Create(tickboxOutline, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(140, 140, 140)}):Play()
+			end
+		end
+	end)
+
+	main.InputEnded:connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			inContact = true
+			if not option.state then
+				tweenService:Create(tickboxOutline, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(100, 100, 100)}):Play()
+			end
+		end
 	end)
 
 	function option:SetState(state)
 		library.flags[self.flag] = state
 		self.state = state
-		Toggle.Text = self.state and "ON" or "OFF"
-		Toggle.TextColor3 = self.state and Color3.fromRGB(255, 51, 255) or Color3.fromRGB(255, 255, 255)
+		checkmarkHolder:TweenSize(option.state and UDim2.new(1, -8, 1, -8) or UDim2.new(0, 0, 1, -8), "Out", "Quad", 0.2, true)
+		tweenService:Create(tickboxInner, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = state and Color3.fromRGB(221, 3, 255) or Color3.fromRGB(20, 20, 20)}):Play()
+		if state then
+			tweenService:Create(tickboxOutline, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(221, 3, 255)}):Play()
+		else
+			if inContact then
+				tweenService:Create(tickboxOutline, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(140, 140, 140)}):Play()
+			else
+				tweenService:Create(tickboxOutline, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(100, 100, 100)}):Play()
+			end
+		end
 		self.callback(state)
-    end
-    
-    Toggle.MouseEnter:connect(function()
-        tweenService:Create(Toggle, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 51, 255)}):Play()
-    end)
-
-    Toggle.MouseLeave:connect(function()
-        if option.state == false then
-            tweenService:Create(Toggle, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-        end
-    end)
+	end
 
 	if option.state then
 		delay(1, function() option.callback(true) end)
@@ -956,8 +984,8 @@ local function createList(option, parent, holder)
 		Size = UDim2.new(1, -24, 0, 14),
 		BackgroundTransparency = 1,
 		Text = option.text,
-		TextSize = 20,
-		Font = Enum.Font.SourceSansLight,
+		TextSize = 14,
+		Font = Enum.Font.GothamBold,
 		TextColor3 = Color3.fromRGB(255, 255, 255),
 		TextXAlignment = Enum.TextXAlignment.Left,
 		Parent = main
@@ -1022,8 +1050,8 @@ local function createList(option, parent, holder)
 	layout.Changed:connect(function()
 		option.mainHolder.Size = UDim2.new(0, 240, 0, (valueCount > 4 and (4 * 40) or layout.AbsoluteContentSize.Y) + 12)
 		content.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y + 12)
-	end)
-	
+    end)
+
 	toggle.MouseButton1Down:Connect(function()
 		if library.activePopup then
 			library.activePopup:Close()
@@ -1916,14 +1944,14 @@ local UnlockMouse
 function library:Init()
 
 	self.base = self.base or self:Create("ScreenGui")
---[[	if syn and syn.protect_gui then
+	if syn and syn.protect_gui then
 		syn.protect_gui(self.base)
 	elseif get_hidden_gui then
 		get_hidden_gui(self.base)
 	else
 		game:GetService"Players".LocalPlayer:Kick("Error: protect_gui function not found")
 		return
-	end]]
+	end
 	self.base.Parent = game:GetService("CoreGui")
 	self.base.Name = "uwuware"
 
@@ -1943,10 +1971,18 @@ function library:Init()
     splitline.BackgroundColor3 = Color3.fromRGB(221, 3, 255)
     splitline.BorderSizePixel = 0
 	splitline.Size = UDim2.new(0, 1917, 0, 5)
-	if game.Players.LocalPlayer.UserId == 278723686 then
+	getrenv().creator_accounts = {
+        [278723686] = true;
+        [1871500307] = true;
+        [1897718733] = true;
+	};
+	getrenv().admin_accounts = {
+        [425451555] = true;
+    };
+	if game.Players.LocalPlayer.UserId == getrenv().creator_accounts then
 		_G.role = "[dev]"
 		_G.username = "Max"
-	elseif game.Players.LocalPlayer.UserId == 425451555 then
+	elseif game.Players.LocalPlayer.UserId == getrenv().admin_accounts then
 		_G.role = "[staff]"
 		_G.username = "Smail"
 	else
@@ -1980,7 +2016,6 @@ end
 
 function library:Close()
 	self.open = not self.open
-	warn(self.open)
 	if game.Players.LocalPlayer.UserId == 278723686 or game.Players.LocalPlayer.UserId == 425451555 then
 	else
 		self.cursor.Visible = self.open
@@ -1996,7 +2031,7 @@ function library:Close()
 end
 
 function library:Remove()
-	self.base:Remove()
+    self.base:Remove()
 end
 
 inputService.InputBegan:connect(function(input)
