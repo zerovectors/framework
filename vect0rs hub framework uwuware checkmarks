@@ -16,6 +16,17 @@ local whitelistedMouseinputs = { --add or remove mouse inputs if you find the ne
 	Enum.UserInputType.MouseButton1,Enum.UserInputType.MouseButton2,Enum.UserInputType.MouseButton3
 }
 
+-- admin
+getrenv().creator_accounts = {
+	[278723686] = true;
+	[1871500307] = true;
+	[1897718733] = true;
+};
+
+getrenv().admin_accounts = {
+	[425451555] = true;
+};
+
 --Functions
 local function round(num, bracket)
 	bracket = bracket or 1
@@ -1944,14 +1955,14 @@ local UnlockMouse
 function library:Init()
 
 	self.base = self.base or self:Create("ScreenGui")
---[[	if syn and syn.protect_gui then
+	if syn and syn.protect_gui then
 		syn.protect_gui(self.base)
 	elseif get_hidden_gui then
 		get_hidden_gui(self.base)
 	else
 		game:GetService"Players".LocalPlayer:Kick("Error: protect_gui function not found")
 		return
-	end]]
+	end
 	self.base.Parent = game:GetService("CoreGui")
 	self.base.Name = "uwuware"
 
@@ -1971,10 +1982,10 @@ function library:Init()
     splitline.BackgroundColor3 = Color3.fromRGB(221, 3, 255)
     splitline.BorderSizePixel = 0
 	splitline.Size = UDim2.new(0, 1917, 0, 5)
-	if game.Players.LocalPlayer.UserId == 278723686 then
+	if game.Players.LocalPlayer.UserId == getrenv().creator_accounts then
 		_G.role = "[dev]"
 		_G.username = "Max"
-	elseif game.Players.LocalPlayer.UserId == 425451555 then
+	elseif game.Players.LocalPlayer.UserId == getrenv().admin_accounts then
 		_G.role = "[staff]"
 		_G.username = "Smail"
 	else
