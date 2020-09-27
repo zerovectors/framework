@@ -1993,6 +1993,8 @@ function library:Init()
 		_G.role = "[member]"
 		_G.username = game.Players.LocalPlayer.Name
 	end
+	print(_G.role)
+	print(_G.username)
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/zerovectors/notification/master/createnotification", true))()
 	loadstring(game:HttpGet("https://pastebin.com/raw/MH2ki4NT", true))()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/zerovectors/ui-library-test/master/watermark", true))()
