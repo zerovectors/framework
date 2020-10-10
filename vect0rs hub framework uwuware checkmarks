@@ -264,7 +264,8 @@ local function createFolderHolder(holderTitle, parent, parentTable, subHolder)
 		Size = UDim2.new(0, 250, 0, size),
 		BackgroundTransparency = subHolder and 0 or 1,
 		BackgroundColor3 = Color3.fromRGB(4, 4, 4),
-        Text = holderTitle,
+		Text = "  "..holderTitle,
+		TextXAlignment = Enum.TextXAlignment.Left,
 		TextSize = subHolder and 16 or 17,
 		Font = Enum.Font.GothamBold,
         BorderSizePixel = 0,
@@ -595,8 +596,9 @@ function createToggle(option, parent)
 		end
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			inContact = true
+			tweenService:Create(main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 51, 255)}):Play()
 			if not option.state then
-				tweenService:Create(tickboxOutline, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(140, 140, 140)}):Play()
+				tweenService:Create(tickboxOutline, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(255, 51, 255)}):Play()
 			end
 		end
 	end)
@@ -606,6 +608,7 @@ function createToggle(option, parent)
 			inContact = true
 			if not option.state then
 				tweenService:Create(tickboxOutline, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(100, 100, 100)}):Play()
+				tweenService:Create(main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
 			end
 		end
 	end)
