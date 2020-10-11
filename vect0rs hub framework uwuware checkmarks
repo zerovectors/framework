@@ -29,6 +29,12 @@ getrenv().admin_accounts = {
 	[425451555] = true;
 };
 
+getrenv().ui_settings = {
+    font_size = 17;
+    title_size = 16 or 17;
+    main_colour = Color3.fromRGB(255, 51, 255);
+}
+
 --Functions
 local function round(num, bracket)
 	bracket = bracket or 1
@@ -226,7 +232,15 @@ local function createOptionHolder(holderTitle, parent, parentTable, subHolder)
 
 	function parentTable:SetTitle(newTitle)
 		title.Text = tostring(newTitle)
-	end
+    end
+    
+    game:GetService("RunService").RenderStepped:Connect(function()
+        underline.BackgroundColor3 = getrenv().ui_settings.main_colour
+        close.ImageColor3 = getrenv().ui_settings.main_colour
+        title.TextSize = getrenv().ui_settings.title_size
+        title.BorderColor3 = getrenv().ui_settings.main_colour
+        parentTable.main.BorderColor3 = getrenv().ui_settings.main_colour
+    end)
 
 	return parentTable
 end
@@ -345,7 +359,14 @@ local function createFolderHolder(holderTitle, parent, parentTable, subHolder)
 
 	function parentTable:SetTitle(newTitle)
 		title.Text = tostring(newTitle)
-	end
+    end
+    
+    game:GetService("RunService").RenderStepped:Connect(function()
+        close.ImageColor3 = getrenv().ui_settings.main_colour
+        title.TextSize = getrenv().ui_settings.title_size
+        title.BorderColor3 = getrenv().ui_settings.main_colour
+        parentTable.main.BorderColor3 = getrenv().ui_settings.main_colour
+    end)
 
 	return parentTable
 end
@@ -471,27 +492,19 @@ local function createToggleFolderHolder(holderTitle, parent, parentTable, subHol
 	title.InputBegan:connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			option.state = not option.state
-			if option.state then
-				title.TextColor3 = Color3.fromRGB(255, 51, 255)
-			else
-				title.TextColor3 = Color3.fromRGB(255, 255, 255)
-			end
+			title.TextColor3 = option.state and getrenv().ui_settings.main_colour or Color3.fromRGB(255, 255, 255)
 			library.flags[option.flag] = option.state
 			option.state = option.state
 			option.callback(option.state)
 		end
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			inContact = true
-			tweenService:Create(title, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 51, 255)}):Play()
 		end
 	end)
 
 	title.InputEnded:connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			inContact = false
-			if option.state == false then
-				tweenService:Create(title, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-			end
 		end
 	end)
 
@@ -505,6 +518,17 @@ local function createToggleFolderHolder(holderTitle, parent, parentTable, subHol
 	if option.state then
 		delay(1, function() option.callback(true) end)
 	end
+
+    game:GetService("RunService").RenderStepped:Connect(function()
+        close.ImageColor3 = getrenv().ui_settings.main_colour
+        title.TextSize = getrenv().ui_settings.title_size
+        title.TextColor3 = option.state and getrenv().ui_settings.main_colour or Color3.fromRGB(255, 255, 255)
+        if inContact then
+            tweenService:Create(title, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = getrenv().ui_settings.main_colour}):Play()
+        else
+            tweenService:Create(title, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+        end    
+    end)
 
 	return option
 end
@@ -596,7 +620,6 @@ function createToggle(option, parent)
 		end
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			inContact = true
-			tweenService:Create(main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 51, 255)}):Play()
 			if not option.state then
 				tweenService:Create(tickboxOutline, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(255, 51, 255)}):Play()
 			end
@@ -605,13 +628,24 @@ function createToggle(option, parent)
 
 	main.InputEnded:connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
-			inContact = true
-			tweenService:Create(main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+			inContact = false
 			if not option.state then
 				tweenService:Create(tickboxOutline, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(100, 100, 100)}):Play()
 			end
 		end
-	end)
+    end)
+    
+    game:GetService("RunService").RenderStepped:Connect(function()
+        main.TextSize = getrenv().ui_settings.font_size
+        tweenService:Create(tickboxInner, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = option.state and getrenv().ui_settings.main_colour or Color3.fromRGB(20, 20, 20)}):Play()
+        if inContact then
+            tweenService:Create(main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = getrenv().ui_settings.main_colour}):Play()
+            tweenService:Create(tickboxOutline, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = getrenv().ui_settings.main_colour}):Play()
+        else
+            tweenService:Create(main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+            tweenService:Create(tickboxOutline, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = option.state and getrenv().ui_settings.main_colour or Color3.fromRGB(255, 255, 255)}):Play()
+        end    
+    end)
 
 	function option:SetState(state)
 		library.flags[self.flag] = state
@@ -661,7 +695,6 @@ function createButton(option, parent)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			library.flags[option.flag] = true
 			clicking = true
-			tweenService:Create(main, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(221, 3, 255)}):Play()
 			option.callback()
 		end
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
@@ -671,21 +704,18 @@ function createButton(option, parent)
 	end)
 
 	main.InputEnded:connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			clicking = false
-			if inContact then
-				tweenService:Create(main, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(221, 3, 255)}):Play()
-			else
-				tweenService:Create(main, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(221, 3, 255)}):Play()
-			end
-		end
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			inContact = false
-			if not clicking then
-				tweenService:Create(main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-			end
 		end
-	end)
+    end)
+    game:GetService("RunService").RenderStepped:Connect(function()
+        main.TextSize = getrenv().ui_settings.font_size
+        if inContact or clicking then
+            tweenService:Create(main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = getrenv().ui_settings.main_colour}):Play()
+        else
+            tweenService:Create(main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+        end    
+    end)
 end
 
 local function createBind(option, parent)
@@ -733,9 +763,6 @@ local function createBind(option, parent)
 	main.InputBegan:connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			inContact = true
-			if not binding then
-				tweenService:Create(round, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(60, 60, 60)}):Play()
-			end
 		end
 	end)
 
@@ -743,13 +770,9 @@ local function createBind(option, parent)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			binding = true
 			bindinput.Text = "..."
-			tweenService:Create(round, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(221, 3, 255)}):Play()
 		end
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			inContact = false
-			if not binding then
-				tweenService:Create(round, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(40, 40, 40)}):Play()
-			end
 		end
 	end)
 
@@ -813,6 +836,16 @@ local function createBind(option, parent)
 		tweenService:Create(round, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = inContact and Color3.fromRGB(60, 60, 60) or Color3.fromRGB(40, 40, 40)}):Play()
 		round.Size = UDim2.new(0, -textService:GetTextSize(bindinput.Text, 15, Enum.Font.Gotham, Vector2.new(9e9, 9e9)).X - 16, 1, -10)
 	end
+
+	game:GetService("RunService").RenderStepped:Connect(function()
+		main.TextSize = getrenv().ui_settings.font_size
+		bindinput.TextSize = getrenv().ui_settings.font_size
+        if binding then
+            tweenService:Create(round, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = getrenv().ui_settings.main_colour}):Play()
+        else
+            tweenService:Create(round, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(40, 40, 40)}):Play()
+        end    
+    end)
 end
 
 local function createSlider(option, parent)
@@ -903,10 +936,8 @@ local function createSlider(option, parent)
 	local sliding
 	local inContact
 	main.InputBegan:connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			tweenService:Create(fill, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(221, 3, 255)}):Play()
-			tweenService:Create(circle, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(3.5, 0, 3.5, 0), ImageColor3 = Color3.fromRGB(221, 3, 255)}):Play()
-			sliding = true
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            sliding = true
 			option:SetValue(option.min + ((input.Position.X - slider.AbsolutePosition.X) / slider.AbsoluteSize.X) * (option.max - option.min))
 		end
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
@@ -966,7 +997,18 @@ local function createSlider(option, parent)
 		self.value = value
 		inputvalue.Text = value
 		self.callback(value)
-	end
+    end
+    
+    game:GetService("RunService").RenderStepped:Connect(function()
+        title.TextSize = getrenv().ui_settings.font_size
+        if sliding then
+            tweenService:Create(fill, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = getrenv().ui_settings.main_colour}):Play()
+            tweenService:Create(circle, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = getrenv().ui_settings.main_colour}):Play()
+        else
+            tweenService:Create(fill, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(100, 100, 100)}):Play()
+            tweenService:Create(circle, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(100, 100, 100)}):Play()
+        end    
+    end)
 end
 
 local function createList(option, parent, holder)
@@ -1043,7 +1085,7 @@ local function createList(option, parent, holder)
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
-		ScrollBarImageColor3 = Color3.fromRGB(),
+		ScrollBarImageColor3 = Color3.fromRGB(255, 51, 255),
 		ScrollBarThickness = 0,
 		ScrollingDirection = Enum.ScrollingDirection.Y,
 		Parent = option.mainHolder
@@ -1192,7 +1234,16 @@ local function createList(option, parent, holder)
                 self.mainHolder.Visible = false
 			end
 		--end)
-	end
+    end
+    
+    game:GetService("RunService").RenderStepped:Connect(function()
+        title.TextSize = getrenv().ui_settings.font_size
+        listvalue.TextSize = getrenv().ui_settings.font_size
+        tweenService:Create(main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BorderColor3 = getrenv().ui_settings.main_colour}):Play()
+        tweenService:Create(option.mainHolder, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BorderColor3 = getrenv().ui_settings.main_colour}):Play()
+        tweenService:Create(content, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ScrollBarImageColor3 = getrenv().ui_settings.main_colour}):Play()
+        tweenService:Create(round, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BorderColor3 = getrenv().ui_settings.main_colour}):Play() 
+    end)
 
 	return option
 end
@@ -1279,7 +1330,6 @@ local function createBox(option, parent)
 
 	inputvalue.Focused:connect(function()
 		focused = true
-		tweenService:Create(outline, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(221, 3, 255)}):Play()
 	end)
 
 	inputvalue.FocusLost:connect(function(enter)
@@ -1293,7 +1343,16 @@ local function createBox(option, parent)
 		self.value = tostring(value)
 		inputvalue.Text = self.value
 		self.callback(value, enter)
-	end
+    end
+    
+    game:GetService("RunService").RenderStepped:Connect(function()
+        title.TextSize = getrenv().ui_settings.font_size
+        if focused then
+            tweenService:Create(outline, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = getrenv().ui_settings.main_colour}):Play()
+        else
+            tweenService:Create(outline, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(60, 60, 60)}):Play()
+        end    
+    end)
 end
 
 local function createColorPickerWindow(option)
@@ -1731,7 +1790,11 @@ local function createColor(option, parent, holder)
 		library.flags[self.flag] = newColor
 		self.color = newColor
 		self.callback(newColor)
-	end
+    end
+    
+    game:GetService("RunService").RenderStepped:Connect(function()
+        option.main.TextSize = getrenv().ui_settings.font_size  
+    end)
 
 	function option:Close()
 		library.activePopup = nil
