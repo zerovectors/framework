@@ -706,6 +706,7 @@ function createButton(option, parent)
 	main.InputEnded:connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			inContact = false
+			clicking = false
 		end
     end)
     game:GetService("RunService").RenderStepped:Connect(function()
