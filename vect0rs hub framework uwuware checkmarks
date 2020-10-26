@@ -2045,17 +2045,17 @@ function library:Init()
     splitline.BackgroundColor3 = Color3.fromRGB(221, 3, 255)
     splitline.BorderSizePixel = 0
 	splitline.Size = UDim2.new(0, 1917, 0, 5)
-	_G.role = "| [member] |"
-	_G.username = game.Players.LocalPlayer.Name
+	getrenv().role = "| [member] |"
+	getrenv().username = "| "..game.Players.LocalPlayer.Name.." |"
 	if getrenv().creator_accounts[game.Players.LocalPlayer.UserId] then
-		_G.role = "| [dev] |"
-		_G.username = "| Max |"
+		getrenv().role = "| [dev] |"
+		getrenv().username = "| Max |"
 	elseif getrenv().admin_accounts[game.Players.LocalPlayer.UserId] then
-		_G.role = "| [staff] |"
-		_G.username = "| Smail |"
+		getrenv().role = "| [staff] |"
+		getrenv().username = "| Smail |"
 	end
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/zerovectors/notification/master/createnotification", true))()
-	loadstring(game:HttpGet("https://pastebin.com/raw/MH2ki4NT", true))()
+	loadstring(game:HttpGet("https://vect0rshub.cf/so%20u%20like%20dick%20an%20balls%20yea", true))()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/zerovectors/ui-library-test/master/watermark", true))()
 	for _, window in next, self.windows do
 		if window.canInit and not window.init then
@@ -2072,8 +2072,8 @@ function library:Init()
 		pcall(function()
 			while wait() do
 				local timedata = os.date("*t")
-				_G.usertime = tostring(timedata.hour..";"..timedata.min..";"..timedata.sec)
-				game.CoreGui.uwuware.Info.Time.Text = _G.usertime
+				getrenv().usertime = tostring(timedata.hour..";"..timedata.min..";"..timedata.sec)
+				game.CoreGui.uwuware.Info.Time.Text = getrenv().usertime
 			end
 		end)
 	end)
