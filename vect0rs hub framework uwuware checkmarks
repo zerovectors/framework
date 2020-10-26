@@ -2073,7 +2073,7 @@ function library:Init()
 			while wait() do
 				local timedata = os.date("*t")
 				getrenv().usertime = tostring(timedata.hour..";"..timedata.min..";"..timedata.sec)
-				game.CoreGui.uwuware.Info.Time.Text = getrenv().usertime
+				game.CoreGui.uwuware.Info.Time.Text = "| "..getrenv().usertime.." |"
 			end
 		end)
 	end)
