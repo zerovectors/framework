@@ -2017,7 +2017,6 @@ end
 local UIToggle
 local UnlockMouse
 function library:Init()
-
 	self.base = self.base or self:Create("ScreenGui")
 	if syn and syn.protect_gui then
 		syn.protect_gui(self.base)
@@ -2046,14 +2045,14 @@ function library:Init()
     splitline.BackgroundColor3 = Color3.fromRGB(221, 3, 255)
     splitline.BorderSizePixel = 0
 	splitline.Size = UDim2.new(0, 1917, 0, 5)
-	_G.role = "[member]"
+	_G.role = "| [member] |"
 	_G.username = game.Players.LocalPlayer.Name
 	if getrenv().creator_accounts[game.Players.LocalPlayer.UserId] then
-		_G.role = "[dev]"
-		_G.username = "Max"
+		_G.role = "| [dev] |"
+		_G.username = "| Max |"
 	elseif getrenv().admin_accounts[game.Players.LocalPlayer.UserId] then
-		_G.role = "[staff]"
-		_G.username = "Smail"
+		_G.role = "| [staff] |"
+		_G.username = "| Smail |"
 	end
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/zerovectors/notification/master/createnotification", true))()
 	loadstring(game:HttpGet("https://pastebin.com/raw/MH2ki4NT", true))()
