@@ -16,7 +16,7 @@ local whitelistedMouseinputs = { --add or remove mouse inputs if you find the ne
 	Enum.UserInputType.MouseButton1,Enum.UserInputType.MouseButton2,Enum.UserInputType.MouseButton3
 }
 
--- admin
+-- admin tables
 getrenv().creator_accounts = {
 	[278723686] = true;
 	[1871500307] = true;
@@ -25,9 +25,28 @@ getrenv().creator_accounts = {
 	[1918245617] = true;
 };
 
-getrenv().admin_accounts = {
+getrenv().smail_accounts = {
 	[425451555] = true;
+	[1741538359] = true;
 };
+
+getrenv().dutchy_accounts = {
+	[10584392] = true;
+	[340501129] = true;
+};
+
+getrenv().admin_accounts = {
+	[278723686] = true;
+	[1871500307] = true;
+	[1897718733] = true;
+	[291262052] = true;
+	[1918245617] = true;
+	[425451555] = true;
+	[1741538359] = true;
+	[10584392] = true;
+	[340501129] = true;
+};
+
 
 getrenv().ui_settings = {
     font_size = 17;
