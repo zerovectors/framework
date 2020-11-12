@@ -23,6 +23,7 @@ getrenv().creator_accounts = {
 	[1897718733] = true;
 	[291262052] = true;
 	[1918245617] = true;
+	[61692084] = true;
 };
 
 getrenv().smail_accounts = {
@@ -39,6 +40,7 @@ getrenv().admin_accounts = {
 	[278723686] = true;
 	[1871500307] = true;
 	[1897718733] = true;
+	[61692084] = true;
 	[291262052] = true;
 	[1918245617] = true;
 	[425451555] = true;
