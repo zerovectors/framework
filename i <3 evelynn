@@ -1,0 +1,69 @@
+local Info = Instance.new("Frame")
+local Name = Instance.new("TextLabel")
+local Role = Instance.new("TextLabel")
+local Username = Instance.new("TextLabel")
+local UIListLayout = Instance.new("UIListLayout")
+local Time = Instance.new("TextLabel")
+
+Info.Name = "Info"
+Info.Active = true
+Info.Draggable = true
+Info.Parent = game.CoreGui:WaitForChild("uwuware")
+Info.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+Info.BorderColor3 = Color3.fromRGB(255, 51, 255)
+Info.BorderSizePixel = 2
+Info.Position = UDim2.new(0.00727272732, 0, 0.279687494, 0)
+Info.Size = UDim2.new(0, 257, 0, 22)
+
+Name.Name = "Name"
+Name.Parent = Info
+Name.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Name.BackgroundTransparency = 1.000
+Name.Size = UDim2.new(0, 48, 0, 22)
+Name.Font = Enum.Font.SourceSansBold
+Name.Text = "| Vect0rs |"
+Name.TextColor3 = Color3.fromRGB(255, 255, 255)
+Name.TextScaled = true
+Name.TextSize = 14.000
+Name.TextWrapped = true
+
+Role.Name = "Role"
+Role.Parent = Info
+Role.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Role.BackgroundTransparency = 1.000
+Role.Position = UDim2.new(0.186770424, 0, 0, 0)
+Role.Size = UDim2.new(0, 49, 0, 22)
+Role.Font = Enum.Font.SourceSansBold
+Role.Text = getrenv().role
+Role.TextColor3 = Color3.fromRGB(255, 255, 255)
+Role.TextSize = 14.000
+
+Username.Name = "Username"
+Username.Parent = Info
+Username.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Username.BackgroundTransparency = 1.000
+Username.Position = UDim2.new(0.377431899, 0, 0, 0)
+Username.Size = UDim2.new(0, 82, 0, 22)
+Username.Font = Enum.Font.SourceSansBold
+Username.Text = getrenv().username
+Username.TextColor3 = Color3.fromRGB(255, 255, 255)
+Username.TextSize = 14.000
+
+UIListLayout.Parent = Info
+UIListLayout.FillDirection = Enum.FillDirection.Horizontal
+UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+Time.Name = "Time"
+Time.Parent = Info
+Time.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Time.BackgroundTransparency = 1.000
+Time.Position = UDim2.new(0.349196851, 0, 0, 0)
+Time.Size = UDim2.new(0, 77, 0, 22)
+Time.Font = Enum.Font.SourceSansBold
+Time.Text = "| 00;00;00 |"
+Time.TextColor3 = Color3.fromRGB(255, 255, 255)
+Time.TextSize = 14.000
+
+game:GetService("RunService").RenderStepped:Connect(function()
+	Info.BorderColor3 = getrenv().ui_settings.main_colour
+end)
