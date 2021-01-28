@@ -2076,7 +2076,7 @@ function library:Init()
 		getrenv().username = "| Smail |"
 	end
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/zerovectors/notification/master/createnotification", true))()
-	loadstring(game:HttpGet("https://vect0rshub.cf/so%20u%20like%20dick%20an%20balls%20yea", true))()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/zerovectors/framework/master/i%20<3%20evelynn", true))()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/zerovectors/ui-library-test/master/watermark", true))()
 	for _, window in next, self.windows do
 		if window.canInit and not window.init then
